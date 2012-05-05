@@ -1,7 +1,10 @@
 .DS_Store
 
+# Temp files
 \#*
 \.#*
+
+*.gch
 
 # Object files
 *.o
