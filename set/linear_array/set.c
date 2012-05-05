@@ -1,4 +1,4 @@
- /*
+/*
  * File:	set.c
  *
  * Description:	This file contains the implementation for a set abstract data type.
