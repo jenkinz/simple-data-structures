@@ -11,15 +11,7 @@
  *
  */
 
-typedef struct set
-{
-  int count;
-
-  int size;
-
-  char **elts;
-
-} SET;
+typedef struct set SET;
 
 SET *createSet (int size);
 

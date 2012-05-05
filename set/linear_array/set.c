@@ -1,3 +1,4 @@
+
 /*
  * File:	set.c
  *
@@ -15,6 +16,16 @@
 # include <stdlib.h>
 # include <string.h>
 # include "set.h"
+
+/* Definition of the `set` data type */
+struct set
+{
+  int count; /* The number of elements currently in `elts` */
+
+  int size; /* The maximum size of `elts` */
+
+  char **elts; /* The array of element strings */
+};
 
 /*
  * Function:	locateElement

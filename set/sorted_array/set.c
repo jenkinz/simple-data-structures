@@ -1,20 +1,3 @@
-/* Brian Jenkins
- * COEN 12, Project #2 (Sorted)
- * 5/4/06
- *
- * File:	set.c
- *
- * Description:	This file contains the public and private function and type definitions for
- *		a set abstract data type for strings.  A set is an unordered collection of
- *		unique elements.
- *
- *		This implementation uses a sorted array to store the elements. Therefore,
- *		binary search is utilized and determining membership is logarithmic time.
- *		Insertion is logarithmic if the element is already present, and linear
- *		otherwise. Deletion is logarithmic if the element is not present, and
- *		linear otherwise.
- *
- */
 /*
  * File:	set.c
  *
@@ -33,6 +16,17 @@
 # include <string.h>
 # include "set.h"
 
+/* Definition of the `set` data type */
+struct set
+{
+  int count; /* The number of elements currently in `elts` */
+
+  int size; /* The maximum size of `elts` */
+
+  char **elts; /* The array of element strings */
+};
+
+/* Private function prototype */
 static int locateElement (SET *set, char *elt, int *found);
 
 /*
