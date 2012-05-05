@@ -1,10 +1,10 @@
-/*
+ /*
  * File:	set.c
  *
  * Description:	This file contains the implementation for a set abstract data type.
  *              The algorithm used to implement the set is a linear array with linear search.
  *
- *              A set is an unordered collection of unique elements.
+ *              A set is an unordered collection of unique elements. Each element is a string.
  *
  * Author:      Brian Jenkins (bj@jenkinz.com)
  * Date:        05/05/2012
@@ -39,7 +39,8 @@ int locateElement (SET *set, char *x)
 /*
  * Function:    createSet
  *
- * Description: Initializes and returns a pointer to a set with a maximum capacity of `size` elements.
+ * Description: Initializes and returns a pointer to an empty set with a maximum capacity of `size` elements.
+ *              If an error occurs allocating the set, NULL will be returned.
  *
  * Complexity:  O(1)
  */
@@ -49,9 +50,9 @@ SET *createSet (int size)
 
   s = malloc (sizeof(SET));
 
-  if ( s == NULL )
-
+  if (s == NULL) {
     return s;
+  }
 
   s->count = 0;
 
@@ -66,98 +67,78 @@ SET *createSet (int size)
  * Function:	insertElement
  *
  * Description: Insert `elt` into `set`, and return whether the set changed.
+ *              1 is returned if the set changed. Otherwise, 0 is returned.
  *
  * Complexity:  O(1)
  */
+int insertElement (SET *set, char *elt)
+{
+  if (set->count == set->size)
+    return 0;
 
-int insertElement (SET *set, char *elt) {
+  if (hasElement (set, elt))
+    return 0;
 
-	if (set->count == set->size)
+  set->elts[set->count++] = elt;
 
-		return 0;
-
-	if (hasElement (set, elt) )
-
-		return 0;
-
-	set->elts[set->count++] = elt;
-
-
-	return 1;
-
+  return 1;
 }
 
-
-
 /*
- * Function: numElements
+ * Function:    numElements
  *
- * Return the number of elements in "set"
+ * Description: Returns the number of elements in `set`.
  *
- * Algorithmic Complexity: O(1)
+ * Complexity:  O(1)
  */
-
-int numElements (SET *set) {
-
-	return set->count;
-
+int numElements (SET *set)
+{
+  return set->count;
 }
 
-
-
 /*
- * Function: hasElement
+ * Function:    hasElement
  *
- * Description: Return one if "elt" is a member of "set", and zero otherwise
+ * Description: Returns 1 if `elt` is a member of `set`. Otherwise, returns 0.
  *
- * Algorithmic Complexity: O(1)
+ * Complexity:  O(1)
  */
-
-int hasElement (SET *set, char *elt) {
-
-	return locateElement (set, elt) != -1;
-
+int hasElement (SET *set, char *elt)
+{
+  return locateElement (set, elt) != -1;
 }
 
-
-
 /*
- * Function: deleteElement
+ * Function:    deleteElement
  *
- * Description: Delete "elt" from "set", and return whether the set changed
+ * Description: Deletes `elt` from `set`, and returns whether the set changed.
  *
- * Algorithmic Complexity: O(1)
+ * Complexity:  O(1)
  */
+int deleteElement (SET *set, char *elt)
+{
+  int loc;
 
-int deleteElement (SET *set, char *elt) {
+  if ((loc = locateElement(set, elt)) == -1)
+    return 0;
 
-	int loc;
+  set->elts[loc] = set->elts[--set->count];
 
-	if ((loc = locateElement(set, elt)) == -1)
-
-		return 0;
-
-	set->elts[loc] = set->elts[--set->count];
-
-	return 1;
-
+  return 1;
 }
 
-
 /*
- * Function: destroySet
+ * Function:    destroySet
  *
- * Description: Deallocate memory associated with "set"
+ * Description: Deallocates memory associated with `set`.
  *
- * Algorithmic Complexity: O(1)
+ * Complexity:  O(1)
  */
+void destroySet (SET *set)
+{
+  free (set->elts);
 
-void destroySet (SET *set) {
+  free (set);
 
-	free (set->elts);
-
-	free (set);
-
-	return;
-
+  return;
 }

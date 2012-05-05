@@ -1,26 +1,25 @@
-/*Brian Jenkins
- *COEN 12, Project #1
- *4/20/06
+/*
+ * File:	set.h
  *
- *File:		set.h
+ * Description:	This file contains the specification of the structure and function prototypes
+ *              for a set abstract data type.
  *
- *Description:	This file contains the set.h function with all function
- *              prototypedeclarations.
+ *              A set is an unordered collection of unique elements. Each element is a string.
  *
+ * Author:      Brian Jenkins (bj@jenkinz.com)
+ * Date:        05/05/2012
  *
  */
 
-struct set {
+typedef struct set
+{
+  int count;
 
-	int count;
+  int size;
 
-	int size;
+  char **elts;
 
-	char **elts;
-
-};
-
-typedef struct set SET;
+} SET;
 
 SET *createSet (int size);
 
@@ -33,4 +32,3 @@ int hasElement (SET *set, char *elt);
 int insertElement (SET *set, char *elt);
 
 int deleteElement (SET *set, char *elt);
-

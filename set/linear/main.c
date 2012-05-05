@@ -10,6 +10,10 @@
  *		total words in the set are printed.  If the second file is
  *		given then all words in the second file are deleted from the
  *		set and the count printed.
+ *
+ * Author:      Brian Jenkins (bj@jenkinz.com)
+ * Date:        05/05/2012
+ *
  */
 
 # include <stdio.h>
@@ -18,16 +22,9 @@
 # include "set.h"
 
 
-/* This is sufficient for the test cases in /scratch/coen12. */
+/* The maximum size of the set. */
 
 # define MAX_SIZE 15000
-
-
-/*
- * Function:	main
- *
- * Description:	Driver function for the test application.
- */
 
 int main (int argc, char *argv [])
 {
@@ -35,7 +32,6 @@ int main (int argc, char *argv [])
     FILE *fp;
     char buffer [BUFSIZ];
     int words;
-
 
     /* Check usage and open the first file. */
 
@@ -48,7 +44,6 @@ int main (int argc, char *argv [])
 	fprintf (stderr, "%s: cannot open %s\n", argv [0], argv [1]);
 	exit (EXIT_FAILURE);
     }
-
 
     /* Insert all words into the set. */
 
@@ -92,4 +87,3 @@ int main (int argc, char *argv [])
     destroySet (set);
     exit (EXIT_SUCCESS);
 }
-
