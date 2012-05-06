@@ -16,4 +16,4 @@ The output of this particular test lists the total number of words in `file1.txt
 
 ## Credit
 
-I implemented these back in my college years for Darrent Atkinson's COEN 12 data structures class at Santa Clara University in 2006.
+I implemented these back in my college years for Darrent Atkinson's COEN 12 data structures class at Santa Clara University in 2006. Fun times!
