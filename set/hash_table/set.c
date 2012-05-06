@@ -53,8 +53,8 @@ static unsigned hashIt (char *elt, SET* set)
 {
   unsigned hash = 0;
 
-  while (*s != '\0') /* while the end of the string has not yet been reached */
-    hash = (31 * hash + *s ++); /* revise the `hash` with the current character, and proceed to the next char */
+  while (*elt != '\0') /* while the end of the string has not yet been reached */
+    hash = (31 * hash + *elt ++); /* revise the `hash` with the current character, and proceed to the next char */
 
   return hash % set->size;
 }
