@@ -28,75 +28,73 @@
 /* Definition of the `set` data type */
 struct set
 {
-  int count; /* Number of elements in the array */
+  int count; /* The number of elements currently in `elts` */
 
-  int size; /* Length of the allocated array */
+  int size; /* The maximum size of `elts` */
 
-  char **elts; /* Allocated array of elements */
+  char **elts; /* The array of element strings */
 
-  char *flag; /* Keeps track of whether the slot in an array is empty, full, or deleted */
+  char *flag; /* Keeps track of whether the slot in the array is empty, full, or deleted */
 };
 
 /* Private function prototypes */
-static unsigned hashString (char *s);
+static unsigned hashIt (char *s, SET *set);
 static int locateElement (SET *set, char *elt, int *found);
 
 /*
- * Function:	hashString
+ * Function:	hashIt
  *
- * Description: Performs the hash function on the element to be inserted, and returns
- *		the result of the hash so that the caller can perform
- *		modulo division, thus yielding the proper index.
+ * Description: Performs the hash function on the element `elt`, and returns
+ *		the index in `set` where it should be inserted.
  *
- * Complexity:  O(x) - x is the length of the input array
+ * Complexity:  O(x) - x is the length of the `elt` string
  */
-static unsigned hashString  (char *s)
+static unsigned hashIt (char *elt, SET* set)
 {
   unsigned hash = 0;
 
-  while (*s != '\0')
-    hash = (31 * hash + *s ++);
+  while (*s != '\0') /* while the end of the string has not yet been reached */
+    hash = (31 * hash + *s ++); /* revise the `hash` with the current character, and proceed to the next char */
 
-  return hash;
+  return hash % set->size;
 }
 
 /*
  * Function:	locateElement
  *
- * Description: Returns the location of an element in an array (utilizes hash function, linear probing)
+ * Description: Returns the location of an element in the `set` using the hash function.
+ *              If element present: return its index, and set `found` pointer to 1. If
+ *		element not present, return the index of where it would have been, and
+ *		set found pointer to 0.
  *
  * Complexity:  O(1) - average case, where all keys map to different locations
  *		O(n) - worst case, where linear probing is required for each key
  */
 static int locateElement (SET *set, char *elt, int *found)
 {
-  int first, locn, i;
+  int first, locn, i, actual = -1, actcount = 0;
 
-  int actual = -1;
-
-  int actcount = 0;
-
-  first = hashString (elt) % set->size;
+  first = hashIt (elt, set);
 
   for (i = 0; i < set->size; i++) {
 
     locn = (first + i) % set->size;
 
-    //Case if it's empty:
+    /* Case if it's empty: */
 
     if (set->flag[locn] == EMPTY) {
       *found = 0;
       return locn;
     }
 
-    //If it's deleted:
+    /* If it's deleted: */
 
     else if (set->flag[locn] == DEL) {
       actual = locn;
-      actcount++;	//We need a counter to keep track of the FIRST deleted slot encountered
+      actcount++;	/* We need a counter to keep track of the FIRST deleted slot encountered */
     }
 
-    //If it's filled:
+    /* If it's filled: */
 
     else if (strcmp (set->elts[locn], elt) == 0) {
       *found = 1;
@@ -105,7 +103,7 @@ static int locateElement (SET *set, char *elt, int *found)
   }
 
   *found = 0;
-  return (actual - actcount);     //Make sure we return the FIRST deleted slot encountered
+  return (actual - actcount);     /* Make sure we return the FIRST deleted slot encountered */
 }
 
 /*

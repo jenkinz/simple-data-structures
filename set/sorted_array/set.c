@@ -32,7 +32,7 @@ static int locateElement (SET *set, char *elt, int *found);
 /*
  * Function:	locateElement
  *
- * Description: A private function that returns the location of an element `elt` in an array `set` using binary search.
+ * Description: A private function that returns the location of an element `elt` in the `set` using binary search.
  *		If element present: return its index, and set `found` pointer to 1. If
  *		element not present, return the index of where it would have been, and
  *		set found pointer to 0.
