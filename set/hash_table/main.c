@@ -36,13 +36,13 @@ int main (int argc, char *argv [])
     /* Check usage and open the first file. */
 
     if (argc == 1 || argc > 3) {
-	fprintf (stderr, "usage: %s file1 [file2]\n", argv [0]);
-	exit (EXIT_FAILURE);
+        fprintf (stderr, "usage: %s file1 [file2]\n", argv [0]);
+        exit (EXIT_FAILURE);
     }
 
     if ((fp = fopen (argv [1], "r")) == NULL) {
-	fprintf (stderr, "%s: cannot open %s\n", argv [0], argv [1]);
-	exit (EXIT_FAILURE);
+        fprintf (stderr, "%s: cannot open %s\n", argv [0], argv [1]);
+        exit (EXIT_FAILURE);
     }
 
     /* Insert all words into the set. */
@@ -50,16 +50,16 @@ int main (int argc, char *argv [])
     words = 0;
 
     if ((set = createSet (MAX_SIZE)) == NULL) {
-	fprintf (stderr, "%s: failed to create set\n", argv [0]);
-	exit (EXIT_FAILURE);
+        fprintf (stderr, "%s: failed to create set\n", argv [0]);
+        exit (EXIT_FAILURE);
     }
 
     while (fscanf (fp, "%s", buffer) == 1) {
-	words ++;
+        words ++;
 
-	if (!hasElement (set, buffer))
-	    if (!insertElement (set, strdup (buffer)))
-		fprintf (stderr, "set full\n");
+        if (!hasElement (set, buffer))
+            if (!insertElement (set, strdup (buffer)))
+                fprintf (stderr, "set full\n");
     }
 
     printf ("%d total words\n", words);
@@ -70,18 +70,18 @@ int main (int argc, char *argv [])
     /* Try to open the second file. */
 
     if (argc == 3) {
-	if ((fp = fopen (argv [2], "r")) == NULL) {
-	    fprintf (stderr, "%s: cannot open %s\n", argv [0], argv [1]);
-	    exit (EXIT_FAILURE);
-	}
+        if ((fp = fopen (argv [2], "r")) == NULL) {
+            fprintf (stderr, "%s: cannot open %s\n", argv [0], argv [1]);
+            exit (EXIT_FAILURE);
+        }
 
 
-	/* Delete all words in the second file. */
+        /* Delete all words in the second file. */
 
-	while (fscanf (fp, "%s", buffer) == 1)
-	    deleteElement (set, buffer);
+        while (fscanf (fp, "%s", buffer) == 1)
+            deleteElement (set, buffer);
 
-	printf ("%d remaining words\n", numElements (set));
+        printf ("%d remaining words\n", numElements (set));
     }
 
     destroySet (set);
