@@ -6,9 +6,9 @@ This project contains simple data type implementations of sets and lists using v
 
 In addition to the source and header, each implementation contains a `main.c` which provides a test function for the corresponding implementation. The test function takes two files as command line arguments, the second of which is optional. See each `main.c` for further information on the test function's output.
 
-For example, to run the test for `set/linear_array`:
+For example, to run the test for `linear_array`:
 
-- `cd set/linear_array`
+- `cd linear_array`
 - `gcc *.c`
 - `./a.out file1.txt file2.txt`
 
